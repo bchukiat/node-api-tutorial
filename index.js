@@ -1,13 +1,39 @@
 var app = require('express')()
+var users = require('./users');
+
+var bodyParser = require('body-parser')
+app.use(bodyParser.json())
+app.use(
+  bodyParser.urlencoded({
+    extended: true
+  })
+)
 
 var port = process.env.PORT || 7777
 
-app.get('/', function (req, res) {
-  res.send('<h1>Hello Node.js</h1>')
+app.get('/user', function (req, res) {
+    res.json(users.findAll())
 })
 
-app.get('/index', function (req, res) {
-  res.send('<h1>This is index page</h1>')
+app.get('/user/:id', function (req, res) {
+    var id = req.params.id
+    res.json(users.findById(id))
+})
+
+app.post('/newuser', function (req, res) {
+    var json = req.body
+    res.send('Add new ' + json.name + ' Completed!')
+})
+
+app.put('/updateuser/:id', function (req, res) {
+    const id =  req.params.id;
+    var json = req.body
+    res.send('Update id:' + id + ', name:' + json.name + ' Completed!')
+})
+
+app.delete('/deleteuser/:id', function (req, res){
+    const id =  req.params.id;
+    res.send('Delete id:' + id + ' Completed!')
 })
 
 app.listen(port, function () {
