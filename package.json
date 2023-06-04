@@ -1,0 +1,22 @@
+{
+  "name": "api-tutorial",
+  "version": "1.0.0",
+  "description": "nodejs api on express and mssql",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/bchukiat/node-api-tutorail.git"
+  },
+  "author": "chukiat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bchukiat/node-api-tutorail/issues"
+  },
+  "homepage": "https://github.com/bchukiat/node-api-tutorail#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
