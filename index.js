@@ -22,13 +22,15 @@ app.get('/user/:id', function (req, res) {
 
 app.post('/newuser', function (req, res) {
     var json = req.body
-    res.send('Add new ' + json.name + ' Completed!')
+    id = users.create(json);
+    res.send('Added new ' + ' id:' + id + ', name:' + json.name + ' Completed!')
 })
 
 app.put('/updateuser/:id', function (req, res) {
     const id =  req.params.id;
     var json = req.body
-    res.send('Update id:' + id + ', name:' + json.name + ' Completed!')
+    itm = users.update(id, json)
+    res.send('Updated id:' + itm.id + ', name:' + itm.name + ' Completed!')
 })
 
 app.delete('/deleteuser/:id', function (req, res){
