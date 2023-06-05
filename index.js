@@ -35,6 +35,7 @@ app.put('/updateuser/:id', function (req, res) {
 
 app.delete('/deleteuser/:id', function (req, res){
     const id =  req.params.id;
+    xid = users.delete(id);
     res.send('Delete id:' + id + ' Completed!')
 })
 

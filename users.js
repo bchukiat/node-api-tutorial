@@ -63,4 +63,9 @@ var users = [
     })
     return users.find(o => o.id == id);
   }
+
+  exports.delete = function(id) {
+    users = users.filter(o => o.id != id);
+    return id;
+  } 
   
