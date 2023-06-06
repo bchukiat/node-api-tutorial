@@ -1,5 +1,6 @@
 var app = require('express')()
 var users = require('./users');
+var userData = require('./user_services');
 
 var bodyParser = require('body-parser')
 app.use(bodyParser.json())
@@ -11,8 +12,13 @@ app.use(
 
 var port = process.env.PORT || 7777
 
-app.get('/user', function (req, res) {
-    res.json(users.findAll())
+// app.get('/user', function (req, res) {
+//     res.json(users.findAll())
+// })
+app.get('/user', async function (req, res) {
+  var users = await userData.getUsers();
+  console.log(users);
+  res.json(users)
 })
 
 app.get('/user/:id', function (req, res) {
