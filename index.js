@@ -12,18 +12,15 @@ app.use(
 
 var port = process.env.PORT || 7777
 
-// app.get('/user', function (req, res) {
-//     res.json(users.findAll())
-// })
 app.get('/user', async function (req, res) {
   var users = await userData.getUsers();
-  console.log(users);
   res.json(users)
 })
 
-app.get('/user/:id', function (req, res) {
-    var id = req.params.id
-    res.json(users.findById(id))
+app.get('/user/:id', async function (req, res) {
+  var id = req.params.id;
+  var user = await userData.getUserById(id);
+  res.json(user);
 })
 
 app.post('/newuser', function (req, res) {

@@ -25,6 +25,21 @@ const getUsers = async () => {
     }
 }
 
+const getUserById = async (id) => {
+    try {
+        let pool = await sql.connect(config);
+        const query = 'SELECT [id],[username],[name],[position] FROM [dbo].[tbluser] WHERE [id]=' + id;
+        const users = await pool.request().query(query);
+        return users.recordset && users.recordset.length > 0 ? users.recordset[0] : {};
+    }
+    catch (error) {
+        console.log(error.message);
+    }
+}
+
+
+
 module.exports = {
-    getUsers
+    getUsers,
+    getUserById
 }
