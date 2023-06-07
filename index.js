@@ -23,10 +23,10 @@ app.get('/user/:id', async function (req, res) {
   res.json(user);
 })
 
-app.post('/newuser', function (req, res) {
-    var json = req.body
-    id = users.create(json);
-    res.send('Added new ' + ' id:' + id + ', name:' + json.name + ' Completed!')
+app.post('/newuser', async function (req, res) {
+  var json = req.body
+  user = await userData.addUser(json);
+  res.json(user);
 })
 
 app.put('/updateuser/:id', function (req, res) {

@@ -37,9 +37,26 @@ const getUserById = async (id) => {
     }
 }
 
+const addUser = async (userData) => {
+    try{
+        let pool = await sql.connect(config);
+        const query = 'INSERT INTO [dbo].[tbluser] ([username],[name],[position]) VALUES(@username, @name, @position) SELECT SCOPE_IDENTITY() AS id';
+        const adduser =  await pool.request()
+                            .input('username', sql.NVarChar(50), userData.username)
+                            .input('name', sql.NVarChar(50), userData.name)
+                            .input('position', sql.NVarChar(50), userData.position)
+                            .query(query);
+        return adduser.recordset;
+    }
+    catch (error) {
+        console.log(error.message);
+    }
+}
+
 
 
 module.exports = {
     getUsers,
-    getUserById
+    getUserById,
+    addUser
 }
