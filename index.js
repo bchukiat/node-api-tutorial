@@ -13,27 +13,27 @@ app.use(
 var port = process.env.PORT || 7777
 
 app.get('/user', async function (req, res) {
-  var users = await userData.getUsers();
-  res.json(users)
+  var ret = await userData.getUsers();
+  res.json(ret)
 })
 
 app.get('/user/:id', async function (req, res) {
   var id = req.params.id;
-  var user = await userData.getUserById(id);
-  res.json(user);
+  var ret = await userData.getUserById(id);
+  res.json(ret);
 })
 
 app.post('/newuser', async function (req, res) {
   var json = req.body
-  user = await userData.addUser(json);
-  res.json(user);
+  var ret = await userData.addUser(json);
+  res.json(ret);
 })
 
-app.put('/updateuser/:id', function (req, res) {
+app.put('/updateuser/:id', async function (req, res) {
     const id =  req.params.id;
-    var json = req.body
-    itm = users.update(id, json)
-    res.send('Updated id:' + itm.id + ', name:' + itm.name + ' Completed!')
+    var json = req.body;
+    ret = await userData.updateUser(id, json);
+    res.json(ret);
 })
 
 app.delete('/deleteuser/:id', function (req, res){

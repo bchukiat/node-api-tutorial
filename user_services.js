@@ -1,6 +1,7 @@
 'use strict';
 
 const sql = require('mssql');
+const { update } = require('./users');
 
 const config = {
     server: '127.0.0.1', 
@@ -53,10 +54,25 @@ const addUser = async (userData) => {
     }
 }
 
+const updateUser = async(id, userData) => {
+    try{
+        let pool = await sql.connect(config);
+        const query = 'UPDATE [dbo].[tbluser] SET [username]=@username,[name]=@name,[position]=@position WHERE [id]=@id';
+        const update_user = await pool.request()
+                            .input('id', sql.Int, id)
+                            .input('username', sql.NVarChar(50), userData.username)
+                            .input('name', sql.NVarChar(50), userData.name)
+                            .input('position', sql.NVarChar(50), userData.position)
+                            .query(query);
+        return update_user.recordset;
+    }
+    catch (error) {
+        console.log(error.message);
+    }
+}
+
 
 
 module.exports = {
-    getUsers,
-    getUserById,
-    addUser
+    getUsers, getUserById, addUser, updateUser
 }
