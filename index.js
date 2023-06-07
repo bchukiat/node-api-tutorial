@@ -36,10 +36,10 @@ app.put('/updateuser/:id', async function (req, res) {
     res.json(ret);
 })
 
-app.delete('/deleteuser/:id', function (req, res){
+app.delete('/deleteuser/:id', async function (req, res){
     const id =  req.params.id;
-    xid = users.delete(id);
-    res.send('Delete id:' + id + ' Completed!')
+    ret = await userData.deleteUser(id);
+    res.json(ret);
 })
 
 app.listen(port, function () {

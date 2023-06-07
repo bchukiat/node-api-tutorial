@@ -71,8 +71,20 @@ const updateUser = async(id, userData) => {
     }
 }
 
-
+const deleteUser = async (id) => {
+    try{
+        let pool = await sql.connect(config);
+        const query = 'DELETE [dbo].[tbluser] WHERE [id]=@id';
+        const del_user = await pool.request()
+                            .input('id', sql.Int, id)
+                            .query(query);
+        return del_user.recordset;
+    }
+    catch(error) {
+        console.log(error.message)
+    }
+}
 
 module.exports = {
-    getUsers, getUserById, addUser, updateUser
+    getUsers, getUserById, addUser, updateUser,deleteUser
 }
