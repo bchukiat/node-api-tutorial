@@ -25,7 +25,29 @@ app.use(
 
 const server = https.createServer({key: key, cert: cert }, app);
 
-app.get('/', (req, res) => { res.send('this is an secure server') });
+app.get('/', (req, res) => { 
+  res.send('this is an secure server');
+});
+
+app.get('/list', async (req, res) => { 
+
+  var htm = '<!DOCTYPE html> \
+  <html> \
+    <head>\
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"\
+       rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"\
+       crossorigin="anonymous">\
+    </head>\
+    <body> \
+      <div class="container">\
+        <h5 class="text-primary">User list</h5>\
+        \
+      </div>\
+    </body>\
+  </html>';
+  
+    res.send(htm);
+});
 
 app.get('/user', async function (req, res) {
     var ret = await userData.getUsers();
